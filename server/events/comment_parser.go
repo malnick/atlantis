@@ -193,7 +193,8 @@ func (e *CommentParser) Parse(comment string, vcsHost models.VCSHostType) Commen
 
 	// If RequiredWorkspace flag is set then ignore all other workspaces
 	if len(e.RequiredWorkspace) != 0 && e.RequiredWorkspace != workspace {
-		return CommentParseResult{CommentResponse: e.errMarkdown(fmt.Sprintf("required workspace set to %s – ignoring workspace %s", e.RequiredWorkspace, workspace), command, flagSet)}
+		fmt.Printf("ignoring unrequired workspace: %s\n", workspace)
+		return CommentParseResult{Ignore: true}
 	}
 
 	// Use the same validation that Terraform uses: https://git.io/vxGhU. Plus
